@@ -35,18 +35,18 @@ export const App = () => {
   };
 
   const contactsChange = (name, number) => {
-    setContacts(prevState => {
-      if (
-        prevState.find(contact =>
-          contact.name.toLowerCase().includes(name.toLowerCase())
-        )
-      ) {
-        return alert(`${name} is already in contacts`);
-      }
-      return {
-        contacts: [...prevState, { name: name, number: number, id: nanoid() }],
-      };
-    });
+    const isContactExist = contacts.find(contact =>
+      contact.name.toLowerCase().includes(name.toLowerCase())
+    );
+    if (isContactExist) {
+      alert(`${name} is already in contacts`);
+      return;
+    }
+
+    setContacts(prevState => [
+      ...prevState,
+      { name: name, number: number, id: nanoid() },
+    ]);
   };
 
   return (
